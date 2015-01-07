@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'aliyun/api/version'
+require 'aliyun/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "aliyun-api"
-  spec.version       = Aliyun::Api::VERSION
+  spec.name          = "aliyun_api"
+  spec.version       = Aliyun::VERSION
   spec.authors       = ["qjpcpu"]
   spec.email         = ["qjpcpu@gmail.com"]
   spec.summary       = %q{Aliyun ECS API}

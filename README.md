@@ -1,4 +1,4 @@
-# Aliyun::Api
+# Aliyun
 
 TODO: Write a gem description
 

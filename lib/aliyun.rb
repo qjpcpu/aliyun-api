@@ -1,7 +1,5 @@
-require "aliyun/api/version"
+require "aliyun/version"
 
 module Aliyun
-  module Api
     # Your code goes here...
-  end
 end
