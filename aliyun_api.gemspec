@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'aliyun/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "aliyun_api"
+  spec.name          = "aliyun-api"
   spec.version       = Aliyun::VERSION
   spec.authors       = ["qjpcpu"]
   spec.email         = ["qjpcpu@gmail.com"]
