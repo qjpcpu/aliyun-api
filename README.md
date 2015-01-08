@@ -61,15 +61,12 @@ ecs = Aliyun::ECS.new
 
 这样, 你就可以根据 [阿里云弹性计算服务API参考手册](http://help.aliyun.com/view/11108189_13730407.html)初始化业务参数（除Action参数之外）为一个hash对象，并且将其作为参数传给Action方法（Action参数）, action方法需要将阿里云手册中的Action名按ruby方式命名, 如：阿里云手册中的Action名`StartInstance`对应到这里的方法名为`start_instance`。
 
-```
-parameters = {:parameter_name => parameter_value}
-ecs.action parameters
-```
-
 (1) 例如查询可用地域列表，其Action参数为DescribeRegions，而没有其他参数，代码如下
 
 ```
 ecs.describe_regions {}
+# 输出如下：
+{"Regions"=>{"Region"=>[{"LocalName"=>"深圳", "RegionId"=>"cn-shenzhen"}, {"LocalName"=>"青岛", "RegionId"=>"cn-qingdao"}, {"LocalName"=>"北京", "RegionId"=>"cn-beijing"}, {"LocalName"=>"香港", "RegionId"=>"cn-hongkong"}, {"LocalName"=>"杭州", "RegionId"=>"cn-hangzhou"}]}, "RequestId"=>"abcdefg"}
 ```
 
 (2) 再比如查询可用镜像，代码如下
