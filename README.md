@@ -28,7 +28,7 @@ require 'aliyun'
 
 ### 配置aliyun的access_key
 
-1. 全局配置
+#### 1. 全局配置
 
 ```
 options = {
@@ -39,7 +39,7 @@ Aliyun.config options
 ecs = Aliyun::ECS.new
 ```
 
-2. 直接配置ECS客户端
+#### 2. 直接配置ECS客户端
 
 ```
 options = {
@@ -49,7 +49,7 @@ options = {
 ecs = Aliyun::ECS.new options
 ```
 
-3. 环境变量
+#### 3. 环境变量
 
 如果环境变量里`ACCESS_KEY_ID`和`ACCESS_KEY_SECRET`初始化了密钥，那么可以直接初始化ecs：
 
