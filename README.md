@@ -26,7 +26,20 @@ Or install it yourself as:
 require 'aliyun'
 ```
 
-然后利用自己阿里云账号下的access_key初始化ECS对象。如果没有access_key，可以通过[阿里云用户中心](https://i.aliyun.com/access_key/)申请access_key。
+### 配置aliyun的access_key
+
+1. 全局配置
+
+```
+options = {
+           :access_key_id => "xxxxxx", 
+           :access_key_secret => "yyyyyy" 
+           }
+Aliyun.config options
+ecs = Aliyun::ECS.new
+```
+
+2. 直接配置ECS客户端
 
 ```
 options = {
@@ -36,7 +49,17 @@ options = {
 ecs = Aliyun::ECS.new options
 ```
 
-这样, 你就可以根据 [阿里云弹性计算服务API参考手册](http://help.aliyun.com/view/11108189_13730407.html)初始化业务参数（除Action参数之外）为一个hash对象，并且将其作为参数传给Action方法（Action参数）。
+3. 环境变量
+
+如果环境变量里`ACCESS_KEY_ID`和`ACCESS_KEY_SECRET`初始化了密钥，那么可以直接初始化ecs：
+
+```
+ecs = Aliyun::ECS.new
+```
+
+### 调用ECS
+
+这样, 你就可以根据 [阿里云弹性计算服务API参考手册](http://help.aliyun.com/view/11108189_13730407.html)初始化业务参数（除Action参数之外）为一个hash对象，并且将其作为参数传给Action方法（Action参数）, action方法需要将阿里云手册中的Action名按ruby方式命名, 如：阿里云手册中的Action名`StartInstance`对应到这里的方法名为`start_instance`。
 
 ```
 parameters = {:parameter_name => parameter_value}
@@ -59,7 +82,7 @@ service.describe_images parameters
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/aliyun-api/fork )
+1. Fork it ( https://github.com/qjpcpu/aliyun-api/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

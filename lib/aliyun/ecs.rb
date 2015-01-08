@@ -10,9 +10,9 @@ require 'json'
 module Aliyun
     class ECS
         def initialize(options={})
-            Aliyun.config.access_key_id ||= options[:access_key_id]
-            Aliyun.config.access_key_secret ||= options[:access_key_secret]
-            Aliyun.config.endpoint_url ||= options[:endpoint_url]
+            Aliyun[:access_key_id] = options[:access_key_id] || Aliyun[:access_key_id] || ENV['ACCESS_KEY_ID']
+            Aliyun[:access_key_secret] = options[:access_key_secret] || Aliyun[:access_key_secret] || ENV['ACCESS_KEY_SECRET']
+            Aliyun[:endpoint_url] ||= options[:endpoint_url]
         end
         
         def method_missing(method_name, *args)
@@ -25,19 +25,19 @@ module Aliyun
         def proxy_to_aliyun(method_name, params)
             params = build_request_parameters method_name, params
             begin
-                res = RestClient.get Aliyun.config.endpoint_url, {:params => params,:verify_ssl => OpenSSL::SSL::VERIFY_PEER }
+                res = RestClient.send Aliyun[:request_method].downcase, Aliyun[:endpoint_url], {:params => params,:verify_ssl => OpenSSL::SSL::VERIFY_PEER }
                 return JSON.parse res.body if res.code == 200
             rescue RestClient::Exception => rcex
-                raise AliyunError.new "response error code: #{rcex.response.code}\ndetails: #{rcex.response.body}\nrequest parameters: #{params}"
+                raise AliyunError.new "response error code: #{rcex.response.code}\ndetails: #{rcex.response.body}\nrequest parameters: #{params.reject{|k,v| k==:AccessKeyId}}"
             rescue =>e
                 raise AliyunError.new e.to_s
             end
         end
         
         def build_request_parameters(method_name, params={})
-            params = Aliyun.config.request_parameters.merge(params||{})
+            params = Aliyun[:request_parameters].merge(params||{})
             params.merge!({
-                              :AccessKeyId => Aliyun.config.access_key_id,
+                              :AccessKeyId => Aliyun[:access_key_id],
                               :Action => method_name.to_s,
                               :SignatureNonce => SecureRandom.uuid,
                               :TimeStamp => Time.now.utc.iso8601
@@ -57,8 +57,8 @@ module Aliyun
                 canonicalized_query_string << percent_encode(params[key])
             end
             length = canonicalized_query_string.length
-            string_to_sign = Aliyun.config.request_method + '&' + percent_encode('/') + '&' + percent_encode(canonicalized_query_string[1,length])
-            calculate_signature Aliyun.config.access_key_secret+"&", string_to_sign
+            string_to_sign = Aliyun[:request_method] + '&' + percent_encode('/') + '&' + percent_encode(canonicalized_query_string[1,length])
+            calculate_signature Aliyun[:access_key_secret]+"&", string_to_sign
         end
         
         def calculate_signature key, string_to_sign
