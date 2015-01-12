@@ -51,7 +51,7 @@ ecs = Aliyun::ECS.new options
 
 #### 3. 环境变量
 
-如果环境变量里`ACCESS_KEY_ID`和`ACCESS_KEY_SECRET`初始化了密钥，那么可以直接初始化ecs：
+如果环境变量里`ALIYUN_ACCESS_KEY_ID`和`ALIYUN_ACCESS_KEY_SECRET`初始化了密钥，那么可以直接初始化ecs：
 
 ```
 ecs = Aliyun::ECS.new

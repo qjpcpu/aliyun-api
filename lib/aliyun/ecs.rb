@@ -10,8 +10,8 @@ require 'json'
 module Aliyun
     class ECS
         def initialize(options={})
-            Aliyun[:access_key_id] = options[:access_key_id] || Aliyun[:access_key_id] || ENV['ACCESS_KEY_ID']
-            Aliyun[:access_key_secret] = options[:access_key_secret] || Aliyun[:access_key_secret] || ENV['ACCESS_KEY_SECRET']
+            Aliyun[:access_key_id] = options[:access_key_id] || Aliyun[:access_key_id] || ENV['ALIYUN_ACCESS_KEY_ID']
+            Aliyun[:access_key_secret] = options[:access_key_secret] || Aliyun[:access_key_secret] || ENV['ALIYUN_ACCESS_KEY_SECRET']
             Aliyun[:endpoint_url] ||= options[:endpoint_url]
         end
         

@@ -16,8 +16,8 @@ module Aliyun
             }
             self.request_method = 'GET'
             self.endpoint_url = 'https://ecs.aliyuncs.com/'
-            self.access_key_id = ENV['ACCESS_KEY_ID']
-            self.access_key_secret = ENV['ACCESS_KEY_SECRET']
+            self.access_key_id = ENV['ALIYUN_ACCESS_KEY_ID']
+            self.access_key_secret = ENV['ALIYUN_ACCESS_KEY_SECRET']
         end
     end
     def self.[](key)
