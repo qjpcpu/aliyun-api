@@ -18,16 +18,7 @@ module Aliyun
         def method_missing(method_name, *args)
             super if  /[A-Z]/ =~ method_name.to_s
             method_name = method_name.to_s.split('_').map{|w| w.capitalize }.join('').gsub '_',''
-            params={}
-            if args[0]
-                args[0].each do |k,v|
-                    if /[A-Z]/ !~ k.to_s
-                        key=k.to_s.split('_').map{|w| w.capitalize }.join('').gsub '_',''
-                        params[key]=v
-                    end
-                end
-            end
-            proxy_to_aliyun(method_name, params) 
+            proxy_to_aliyun(method_name, args[0]) 
         end
         
         private
@@ -45,6 +36,12 @@ module Aliyun
         
         def build_request_parameters(method_name, params={})
             params = Aliyun[:request_parameters].merge(params||{})
+            params.keys.each do |k|
+                if /[A-Z]/ !~ k.to_s
+                    key=k.to_s.split('_').map{|w| w.capitalize }.join('').gsub('_','').to_sym
+                    params[key] = params.delete k
+                end
+            end
             params.merge!({
                               :AccessKeyId => Aliyun[:access_key_id],
                               :Action => method_name.to_s,
