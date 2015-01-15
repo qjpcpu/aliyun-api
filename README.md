@@ -72,8 +72,10 @@ ecs.describe_regions {}
 (2) 再比如查询可用镜像，代码如下
 
 ```
-parameters = {:RegionId => "cn-beijing", :PageNumber => 2, :RageSize => 20}
+parameters = {:RegionId => "cn-beijing", :PageNumber => 2, :PageSize => 20}
 service.describe_images parameters
+# or use parameters in rubyway
+parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 ```
 
 
