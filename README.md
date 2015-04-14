@@ -78,6 +78,66 @@ service.describe_images parameters
 parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 ```
 
+## ECS API列表(aliyun ecs api版本: 20140526)
+
+### 实例相关接口
+#### 创建实例create_instance
+参数列表
+* region_id,地域,required
+* zone_id,子区域,optional
+* image_id,镜像,required
+* instance_type, required
+* security_group_id, required
+* instance_name, optional
+* description, optional
+* 略
+
+example: `ecs.create_instance :region_id=>'cn-hangzhou',:image_id=>'img_identifier',:instance_type=>'t2.small',:security_group_id=>'sg_id'`
+
+#### 启动实例start_instance
+参数列表
+* instance_id,实例id,required
+
+example: `ecs.start_instance :instance_id=>'AYxxx'`
+
+#### 停止实例stop_instance
+参数列表
+* instance_id,实例id,required
+* force_stop,重启机器时是否强制关机，默认为false, optional
+
+example: `ecs.stop_instance :instance_id=>'AYxxx'`
+
+#### 重启实例reboot_instance
+参数列表
+* instance_id,实例id,required
+* force_stop,重启机器时是否强制关机，默认为false, optional
+
+example: `ecs.reboot_instance :instance_id=>'AYxxx'`
+
+#### 修改实例属性modify_instance_attribute
+参数列表
+* instance_id,实例id,required
+* instance_name,optional
+* description, optional
+* password, optional
+* host_name, optional
+
+example: `ecs.modify_instance_attribute :instance_id=>'AYxxx',:instance_name=>'new-name'`
+
+#### 查询实例列表describe_instance_status
+参数列表
+* region_id,地域id,required
+* zone_id,子区域,optional
+* page_number, optional
+* page_size, optional
+
+example: `ecs.describe_instance_status :region_id=>'cn-hangzhou'`
+
+#### 查询实例信息describe_instance_attribute
+参数列表
+* instance_id,实例id,required
+
+example: `ecs.describe_instance_attribute :instance_id=>'AYxxx'`
 
 ## Contributing
 
