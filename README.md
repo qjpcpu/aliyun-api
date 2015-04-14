@@ -93,6 +93,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * 略
 
 例:
+
         ecs.create_instance :region_id=>'cn-hangzhou',:image_id=>'img_identifier',:instance_type=>'t2.small',:security_group_id=>'sg_id'
 
 #### 2.启动实例start_instance
@@ -109,6 +110,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * force_stop,重启机器时是否强制关机，默认为false, optional
 
 例:
+
         ecs.stop_instance :instance_id=>'AYxxx'
 
 #### 4.重启实例reboot_instance
@@ -117,6 +119,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * force_stop,重启机器时是否强制关机，默认为false, optional
 
 例:
+
      ecs.reboot_instance :instance_id=>'AYxxx'
 
 #### 5.修改实例属性modify_instance_attribute
@@ -128,6 +131,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * host_name, optional
 
 例:
+
         ecs.modify_instance_attribute :instance_id=>'AYxxx',:instance_name=>'new-name'
 
 #### 6.查询实例列表describe_instance_status
@@ -138,6 +142,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * page_size, optional
 
 例:
+
         ecs.describe_instance_status :region_id=>'cn-hangzhou'
 
 #### 7.查询实例信息describe_instance_attribute
@@ -145,6 +150,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * instance_id,实例id,required
 
 例:
+
         ecs.describe_instance_attribute :instance_id=>'AYxxx'
 
 #### 8.删除实例delete_instance
@@ -152,6 +158,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * instance_id,实例id,required
 
 例:
+
         ecs.delete_instance :instance_id=>'AYxxx'
 
 #### 9.将实例加入安全组join_security_group
@@ -160,6 +167,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * security_group_id, required
 
 例:
+
         ecs.join_security_group :instance_id=>'AYxxx',:security_group_id=>'sg_id'
 
 #### 10.将实例移出安全组leave_security_group
@@ -168,6 +176,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * security_group_id, required
 
 例:
+
         ecs.leave_security_group :instance_id=>'AYxxx',:security_group_id=>'sg_id'
 
 ### 磁盘相关接口
@@ -182,6 +191,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * client_token, optional
 
 例:
+
         ecs.create_disk :region_id=>'cn-hangzhou',:size=>100
         ecs.create_disk :region_id=>'cn-hangzhou',:snapshot_id=>'snap-id'
 
