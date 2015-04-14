@@ -81,7 +81,7 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 ## ECS API列表(aliyun ecs api版本: 20140526)
 
 ### 实例相关接口
-#### 创建实例create_instance
+#### 1.创建实例create_instance
 参数列表
 * region_id,地域,required
 * zone_id,子区域,optional
@@ -92,29 +92,34 @@ parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 * description, optional
 * 略
 
-example: `ecs.create_instance :region_id=>'cn-hangzhou',:image_id=>'img_identifier',:instance_type=>'t2.small',:security_group_id=>'sg_id'`
+例:
+        ecs.create_instance :region_id=>'cn-hangzhou',:image_id=>'img_identifier',:instance_type=>'t2.small',:security_group_id=>'sg_id'
 
-#### 启动实例start_instance
+#### 2.启动实例start_instance
 参数列表
 * instance_id,实例id,required
 
-example: `ecs.start_instance :instance_id=>'AYxxx'`
+例:
 
-#### 停止实例stop_instance
-参数列表
-* instance_id,实例id,required
-* force_stop,重启机器时是否强制关机，默认为false, optional
+        ecs.start_instance :instance_id=>'AYxxx'
 
-example: `ecs.stop_instance :instance_id=>'AYxxx'`
-
-#### 重启实例reboot_instance
+#### 3.停止实例stop_instance
 参数列表
 * instance_id,实例id,required
 * force_stop,重启机器时是否强制关机，默认为false, optional
 
-example: `ecs.reboot_instance :instance_id=>'AYxxx'`
+例:
+        ecs.stop_instance :instance_id=>'AYxxx'
 
-#### 修改实例属性modify_instance_attribute
+#### 4.重启实例reboot_instance
+参数列表
+* instance_id,实例id,required
+* force_stop,重启机器时是否强制关机，默认为false, optional
+
+例:
+     ecs.reboot_instance :instance_id=>'AYxxx'
+
+#### 5.修改实例属性modify_instance_attribute
 参数列表
 * instance_id,实例id,required
 * instance_name,optional
@@ -122,22 +127,85 @@ example: `ecs.reboot_instance :instance_id=>'AYxxx'`
 * password, optional
 * host_name, optional
 
-example: `ecs.modify_instance_attribute :instance_id=>'AYxxx',:instance_name=>'new-name'`
+例:
+        ecs.modify_instance_attribute :instance_id=>'AYxxx',:instance_name=>'new-name'
 
-#### 查询实例列表describe_instance_status
+#### 6.查询实例列表describe_instance_status
 参数列表
 * region_id,地域id,required
 * zone_id,子区域,optional
 * page_number, optional
 * page_size, optional
 
-example: `ecs.describe_instance_status :region_id=>'cn-hangzhou'`
+例:
+        ecs.describe_instance_status :region_id=>'cn-hangzhou'
 
-#### 查询实例信息describe_instance_attribute
+#### 7.查询实例信息describe_instance_attribute
 参数列表
 * instance_id,实例id,required
 
-example: `ecs.describe_instance_attribute :instance_id=>'AYxxx'`
+例:
+        ecs.describe_instance_attribute :instance_id=>'AYxxx'
+
+#### 8.删除实例delete_instance
+参数列表
+* instance_id,实例id,required
+
+例:
+        ecs.delete_instance :instance_id=>'AYxxx'
+
+#### 9.将实例加入安全组join_security_group
+参数列表
+* instance_id,实例id,required
+* security_group_id, required
+
+例:
+        ecs.join_security_group :instance_id=>'AYxxx',:security_group_id=>'sg_id'
+
+#### 10.将实例移出安全组leave_security_group
+参数列表
+* instance_id,实例id,required
+* security_group_id, required
+
+例:
+        ecs.leave_security_group :instance_id=>'AYxxx',:security_group_id=>'sg_id'
+
+### 磁盘相关接口
+#### 1.创建磁盘create_disk
+参数列表
+* region_id,地域id,required
+* zone_id,子区域,optional
+* disk_name, optional
+* description, optional
+* size,磁盘大小GB, optional
+* snapshot_id,磁盘快照, optional
+* client_token, optional
+
+例:
+        ecs.create_disk :region_id=>'cn-hangzhou',:size=>100
+        ecs.create_disk :region_id=>'cn-hangzhou',:snapshot_id=>'snap-id'
+
+#### 2.查询磁盘describe_disks
+参数列表
+* region_id,地域id,required
+* zone_id,子区域,optional
+* disk_ids, optional
+* instance_id, optional
+* disk_type, all|system|data, optional,默认all
+* category, all|cloud|ephemeral,默认all, optional
+* status, In_use|Available|Attaching|Detaching|Creating|ReIniting|All, optional
+* snapshot_id, optional
+* portable, optional
+* delete_with_instance, 是否随实例释放, optional
+* delete_auto_snapshot, 删除磁盘时是否删除快照, optional
+* page_number, optional
+* page_size, optional
+
+例:
+
+     ecs.describe_disks :disk_ids=>["d1","d2"],:region_id=>'cn-hangzhou'
+
+(其他API类似，不再这里赘述，否则成了阿里的翻译机了^_^)
 
 ## Contributing
 
