@@ -28,7 +28,7 @@ module Aliyun
                 res = RestClient.send Aliyun[:request_method].downcase, Aliyun[:endpoint_url], {:params => params,:verify_ssl => OpenSSL::SSL::VERIFY_PEER }
                 return JSON.parse res.body if res.code == 200
             rescue RestClient::Exception => rcex
-                raise AliyunError.new "response error code: #{rcex.response.code}\ndetails: #{rcex.response.body}\nrequest parameters: #{params.reject{|k,v| k==:AccessKeyId}}"
+                raise AliyunError.new "response error: #{rcex.to_s}\nrequest parameters: #{params.reject{|k,v| k==:AccessKeyId}}"
             rescue =>e
                 raise AliyunError.new e.to_s
             end
