@@ -78,6 +78,16 @@ service.describe_images parameters
 parameters = {:region_id => "cn-beijing", :page_number => 2, :page_size => 20}
 ```
 
+(3) 任意API都可以传递一个block，该block可以用来调试实际生成的请求参数
+
+```
+ecs.describe_instances region_id: 'cn-hangzhou' do |params|
+    puts params
+end
+# 输出
+{:Format=>"JSON", :Version=>"2014-05-26", :SignatureMethod=>"HMAC-SHA1", :SignatureVersion=>"1.0", :RegionId=>"cn-hangzhou", :AccessKeyId=>"xxxx", :Action=>"DescribeInstances", :SignatureNonce=>"aaaa-5ade-4391-a032-013a53e692db", :TimeStamp=>"2015-12-28T08:14:46Z", :Signature=>"+Spi/ee="}
+```
+
 ## ECS API列表(aliyun ecs api版本: 20140526)
 
 ### 实例相关接口
