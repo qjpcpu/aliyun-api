@@ -15,15 +15,16 @@ module Aliyun
             Aliyun[:endpoint_url] ||= options[:endpoint_url]
         end
         
-        def method_missing(method_name, *args)
+        def method_missing(method_name, *args,&block)
             super if  /[A-Z]/ =~ method_name.to_s
             method_name = method_name.to_s.split('_').map{|w| w.capitalize }.join('').gsub '_',''
-            proxy_to_aliyun(method_name, args[0]) 
+            proxy_to_aliyun(method_name, args[0],&block) 
         end
         
         private
-        def proxy_to_aliyun(method_name, params)
+        def proxy_to_aliyun(method_name, params,&block)
             params = build_request_parameters method_name, params
+            block.call params if block
             begin
                 res = RestClient.send Aliyun[:request_method].downcase, Aliyun[:endpoint_url], {:params => params,:verify_ssl => OpenSSL::SSL::VERIFY_PEER }
                 return JSON.parse res.body if res.code == 200
