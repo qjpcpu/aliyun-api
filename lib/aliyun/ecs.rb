@@ -3,7 +3,7 @@ require 'securerandom'
 require 'uri'
 require 'rest_client'
 require 'base64'
-require 'hmac-sha1'
+require 'openssl'
 require 'json'
 
 
@@ -69,10 +69,7 @@ module Aliyun
         end
         
         def calculate_signature key, string_to_sign
-            hmac = HMAC::SHA1.new(key)
-            hmac.update(string_to_sign)
-            signature = Base64.encode64(hmac.digest).gsub("\n", '')
-            signature
+            Base64.strict_encode64 OpenSSL::HMAC.digest('sha1',key, string_to_sign)
         end
         
         def percent_encode value
