@@ -12,7 +12,9 @@ module Aliyun
         def initialize(options={})
             Aliyun[:access_key_id] = options[:access_key_id] || Aliyun[:access_key_id] || ENV['ALIYUN_ACCESS_KEY_ID']
             Aliyun[:access_key_secret] = options[:access_key_secret] || Aliyun[:access_key_secret] || ENV['ALIYUN_ACCESS_KEY_SECRET']
-            Aliyun[:endpoint_url] ||= options[:endpoint_url]
+            Aliyun[:endpoint_url] = options[:endpoint_url] || Aliyun[:endpoint_url]
+            Aliyun[:request_parameters][:Version] = options[:version] || Aliyun[:version]
+
         end
         
         def method_missing(method_name, *args,&block)
