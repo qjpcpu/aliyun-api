@@ -29,7 +29,8 @@ module Aliyun
             block.call params if block
             begin
                 res = RestClient.send Aliyun[:request_method].downcase, Aliyun[:endpoint_url], {:params => params,:verify_ssl => OpenSSL::SSL::VERIFY_PEER }
-                return JSON.parse res.body if res.code == 200
+                return JSON.parse res.body if res.code == 200 and res.body.length >= 2
+                return {}
             rescue RestClient::Exception => rcex
                 message = JSON.parse(rcex.response)
                 raise AliyunError.new "response error: [#{message['Message']}] #{rcex.to_s}\nrequest parameters: #{params.reject{|k,v| k==:AccessKeyId}}"
